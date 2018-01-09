@@ -12,7 +12,6 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Check if a Trello list contains card(s)'
   spec.description   = 'Used for incident management where a card represents an incident.'
   spec.homepage      = "https://github.com/aboutsource/sensu-plugin-trello"
-  spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.executables   = Dir.glob('bin/**/*.rb').map { |file| File.basename(file) }
