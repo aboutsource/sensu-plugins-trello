@@ -49,7 +49,7 @@ class CheckTrelloIncidents < Sensu::Plugin::Check::CLI
     description: 'Trello port',
     short: '-p PORT',
     long: '--port PORT',
-    default: '443'
+    default: 443
 
   option :list,
     description: 'Trello list to check',
@@ -73,7 +73,7 @@ class CheckTrelloIncidents < Sensu::Plugin::Check::CLI
 
   def run
     host = config[:host]
-    port = config[:port]
+    port = config[:port].to_i
     key =  config[:api_key] || settings['trello_incidents']['api']['key']
     token = config[:api_token] || settings['trello_incidents']['api']['token']
     list = config[:list]
@@ -86,25 +86,25 @@ class CheckTrelloIncidents < Sensu::Plugin::Check::CLI
     rescue Timeout::Error
       unknown 'Connection timed out'
     rescue => e
-      unknown 'Error: ' + e.message
+      unknown 'Error: %s' % [e.message]
     end
   end
 
   def check_list(host, port, key, token, list)
     if list.match(/\A[a-z0-9]*\z/).nil?
-      raise 'Invalid value for list parameter: ' + list
+      raise 'Invalid value for list parameter: %s' % [list]
     end
 
-    path = '/1/lists/' + list + '/cards'
+    path = '/1/lists/%s/cards/' % [list]
 
-    uri = URI.parse('https://' + host + ':' + port + path)
+    uri = URI.parse('https://%<host>s:%<port>d/%<path>s' % {
+      :host => host, :port => port, :path => path
+    })
     params = { :key => key, :token => token }
     uri.query = URI.encode_www_form(params)
-    res = Net::HTTP.get_response(uri)
 
-    unless res.code =~ /^2/
-      unknown res.code
-    end
+    res = Net::HTTP.get_response(uri)
+    res.value()
 
     incidents = JSON.parse(res.body)
 
@@ -113,7 +113,7 @@ class CheckTrelloIncidents < Sensu::Plugin::Check::CLI
     else
       msgs = []
       incidents.each do |incident|
-        msgs.push(incident['name'] + ' ' + incident['dateLastActivity'])
+        msgs.push('%s %s' % [incident['name'], incident['dateLastActivity']])
       end
       msg = msgs.join(';')
 
