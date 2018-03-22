@@ -1,7 +1,7 @@
-require "sensu/plugin/trello/version"
+require "sensu/plugins/trello/version"
 
 module Sensu
-  module Plugin
+  module Plugins
     module Trello
       # Your code goes here...
     end
