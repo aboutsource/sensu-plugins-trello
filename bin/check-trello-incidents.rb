@@ -106,15 +106,7 @@ class CheckTrelloIncidents < Sensu::Plugin::Check::CLI
     if incidents.empty?
       ok 'No new incidents'
     else
-      msgs = []
-      incidents.each do |incident|
-        msgs.push(format('%<name>s %<last_activity>s',
-                         name: incident['name'],
-                         last_activity: incident['dateLastActivity']))
-      end
-      msg = msgs.join(';')
-
-      critical msg
+      critical incidents.map { |incident| incident['name'] }.join('; ')
     end
   end
 end
