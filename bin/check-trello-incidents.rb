@@ -11,7 +11,7 @@
 # CONFIGURATION:
 #   Configuration of API key and API token should be done through the sensu 
 #   settings file located in /etc/sensu/conf.d/. 
-#      
+#
 #   'api_key' and 'api_token' can be obtained from Trello
 #   (https://trello.com/app-key). 'list' can be obtained by adding .json 
 #   to a card in the browser in the list that should be monitored and search 
@@ -27,7 +27,7 @@
 #   Check if a specific trello list is empty or contains cards
 #      ./check-trello-incidents.rb -k 123456789012 -t 1234567890121234567890 \
 #         -l 1234567890 
-# 
+#
 
 
 require 'sensu-plugin/check/cli'
@@ -38,7 +38,7 @@ require 'net/http'
 
 class CheckTrelloIncidents < Sensu::Plugin::Check::CLI
   include Sensu::Plugin::Utils
-  
+
   option :host,
     description: 'Trello host address',
     short: '-h HOST',
@@ -66,15 +66,21 @@ class CheckTrelloIncidents < Sensu::Plugin::Check::CLI
     short: '-t TOKEN',
     long: '--api-token TOKEN'
 
+  option :timeout,
+    description: 'Trello request timeout in seconds',
+    long: '--timeout TIMEOUT',
+    default: 30
+
   def run
     host = config[:host]
     port = config[:port]
     key =  config[:api_key] || settings['trello_incidents']['api']['key']
     token = config[:api_token] || settings['trello_incidents']['api']['token']
     list = config[:list]
+    timeout = config[:timeout].to_i
 
     begin
-      Timeout.timeout(10) do
+      Timeout.timeout(timeout) do
         check_list(host, port, key, token, list)
       end
     rescue Timeout::Error
@@ -82,25 +88,24 @@ class CheckTrelloIncidents < Sensu::Plugin::Check::CLI
     rescue => e
       unknown 'Error: ' + e.message
     end
-       
   end
 
   def check_list(host, port, key, token, list)
     if list.match(/\A[a-z0-9]*\z/).nil?
       raise 'Invalid value for list parameter: ' + list
-    end 
+    end
 
     path = '/1/lists/' + list + '/cards'
-    
+
     uri = URI.parse('https://' + host + ':' + port + path)
     params = { :key => key, :token => token }
     uri.query = URI.encode_www_form(params)
     res = Net::HTTP.get_response(uri)
-    
+
     unless res.code =~ /^2/
       unknown res.code
     end
-    
+
     incidents = JSON.parse(res.body)
 
     if(incidents.empty?)
@@ -111,7 +116,7 @@ class CheckTrelloIncidents < Sensu::Plugin::Check::CLI
         msgs.push(incident['name'] + ' ' + incident['dateLastActivity'])
       end
       msg = msgs.join(';')
-      
+
       critical msg
     end
   end
