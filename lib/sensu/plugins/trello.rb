@@ -1,4 +1,4 @@
-require "sensu/plugins/trello/version"
+require 'sensu/plugins/trello/version'
 
 module Sensu
   module Plugins
