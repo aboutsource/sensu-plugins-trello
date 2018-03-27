@@ -3,3 +3,6 @@ Style/Documentation:
 
 Metrics:
   Enabled: false
+
+FileName:
+  Enabled: false
