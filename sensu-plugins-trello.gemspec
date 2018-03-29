@@ -5,8 +5,9 @@ require 'sensu/plugins/trello/version'
 Gem::Specification.new do |spec|
   spec.name          = 'sensu-plugins-trello'
   spec.version       = Sensu::Plugins::Trello::VERSION
+  spec.licenses         = ['MIT']
   spec.authors       = ['Hauke Altmann', 'Stefan Walluhn']
-  spec.email         = ['hauke.altmann@aboutsource.net']
+  spec.email         = ['info@aboutsource.net']
 
   spec.summary       = 'Check if a Trello list contains card(s)'
   spec.description   = 'Used for incident management where a card represents '\
