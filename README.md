@@ -1,5 +1,7 @@
 # Sensu check for new incidents in Trello
 
+[![Build Status](https://travis-ci.org/aboutsource/sensu-plugins-trello.svg?branch=master)](https://travis-ci.org/aboutsource/sensu-plugins-trello)
+
 Checks for cards in a trello list. If cards are present, the check returns
 _CRITICAL_, containing name and date of last activity of card. When more than
 one card is present, all card names and dates are returned with *;* delimiter.
