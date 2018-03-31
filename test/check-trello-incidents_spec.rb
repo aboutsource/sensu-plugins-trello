@@ -1,10 +1,13 @@
 require 'json'
 require 'webmock/rspec'
 
-require_relative './plugin_stub.rb'
 require_relative '../bin/check-trello-incidents.rb'
 
 describe CheckTrelloIncidents do
+  before :context do
+    CheckTrelloIncidents.class_variable_set(:@@autorun, false)
+  end
+
   before(:each) do
     @api = stub_request(
       :get,
