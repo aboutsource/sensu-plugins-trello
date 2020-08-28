@@ -91,9 +91,9 @@ class CheckTrelloIncidents < Sensu::Plugin::Check::CLI
       raise format('Invalid value for list parameter: %<list>s', list: list)
     end
 
-    path = format('/1/lists/%<list>s/cards/', list: list)
+    path = format('/1/lists/%<list>s/cards', list: list)
 
-    uri = URI.parse(format('https://%<host>s:%<port>d/%<path>s',
+    uri = URI.parse(format('https://%<host>s:%<port>d%<path>s',
                            host: host, port: port, path: path))
     params = { key: key, token: token }
     uri.query = URI.encode_www_form(params)
