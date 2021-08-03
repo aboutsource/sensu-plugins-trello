@@ -74,3 +74,7 @@ git commits and tags, and push the `.gem` file to
 Bug reports and pull requests are welcome on GitHub at
 https://github.com/aboutsource/sensu-plugins-trello.
 
+
+## Security
+
+* [Snyk](https://app.snyk.io/org/about-source/project/45653e6f-9c0f-413e-9024-501916e4492f)
