@@ -21,7 +21,7 @@ GEM
       ast (~> 2.4.1)
     public_suffix (4.0.6)
     rainbow (3.0.0)
-    rake (10.5.0)
+    rake (12.3.3)
     regexp_parser (2.1.1)
     rexml (3.2.5)
     rspec (3.10.0)
@@ -62,12 +62,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.11)
-  rake (~> 10.0)
+  bundler (~> 2.0)
+  rake (~> 12.0)
   rspec (~> 3.7)
   rubocop (~> 0.54)
   sensu-plugins-trello!
   webmock (~> 3.3)
 
 BUNDLED WITH
-   1.17.3
+   2.1.4
