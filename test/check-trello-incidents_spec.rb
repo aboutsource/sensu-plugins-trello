@@ -11,7 +11,7 @@ describe CheckTrelloIncidents do
   before(:each) do
     @api = stub_request(
       :get,
-      'https://api.trello.com//1/lists/abcde/cards/?key=12345&token=12345'
+      'https://api.trello.com/1/lists/abcde/cards?key=12345&token=12345'
     )
 
     @check = CheckTrelloIncidents.new
