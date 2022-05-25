@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'webmock/rspec'
 
-require_relative '../bin/check-trello-incidents.rb'
+require_relative '../bin/check-trello-incidents'
 
 describe CheckTrelloIncidents do
   before :context do
-    CheckTrelloIncidents.class_variable_set(:@@autorun, false)
+    CheckTrelloIncidents.class_variable_set(:@@autorun, false)  # rubocop:disable Style/ClassVars
   end
 
   before(:each) do
     @api = stub_request(
       :get,
-      'https://api.trello.com//1/lists/abcde/cards/?key=12345&token=12345'
+      'https://api.trello.com/1/lists/abcde/cards?key=12345&token=12345'
     )
 
     @check = CheckTrelloIncidents.new

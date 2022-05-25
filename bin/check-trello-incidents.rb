@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 #
 # Check for new incidents in Trello
 #
@@ -87,9 +89,7 @@ class CheckTrelloIncidents < Sensu::Plugin::Check::CLI
   end
 
   def check_list(host, port, key, token, list)
-    if list.match(/\A[a-z0-9]*\z/).nil?
-      raise format('Invalid value for list parameter: %<list>s', list: list)
-    end
+    raise format('Invalid value for list parameter: %<list>s', list: list) if list.match(/\A[a-z0-9]*\z/).nil?
 
     path = format('/1/lists/%<list>s/cards', list: list)
 
