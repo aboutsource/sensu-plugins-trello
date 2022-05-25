@@ -1,6 +1,6 @@
 # Sensu check for new incidents in Trello
 
-Translate the presence of one or more Trello cards in actionable Sensu alerts to enable using Trello for triggering incident response.
+Translate the presence of one or more Trello cards into actionable Sensu alerts to enable using Trello for triggering incident response.
 
 Checks for cards in a trello list. If cards are present, the check returns
 _CRITICAL_, containing name and date of last activity of card. When more than
