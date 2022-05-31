@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sensu-plugins-trello (0.2.3)
+    sensu-plugins-trello (0.2.4)
       sensu-plugin (~> 2.1)
 
 GEM
