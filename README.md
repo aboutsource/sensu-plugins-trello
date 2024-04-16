@@ -25,9 +25,16 @@ Or install it yourself as:
 ## CONFIGURATION
 Configuration of API key and API token should be done through the sensu
 settings file located in _/etc/sensu/conf.d/_. 
-      
-_api_key_ and _api_token_ can be obtained from
-[Trello](https://trello.com/app-key). _list_ can be obtained by adding _.json_
+
+_api_key_ can be obtained directly from the following link:
+
+https://trello.com/app-key
+
+_api_token_ can be obtained by visiting the following link (replace $API_KEY with the obtained _api_key_):
+
+https://trello.com/1/authorize?expiration=never&scope=read&response_type=token&name=sensu-plugins-trello&key=$API_KEY
+
+_list_ can be obtained by adding _.json_
 to a card in the browser in the list that should be monitored and search for
 _idList_ in the JSON-output. Note that in a production environment, _api_key_
 and _api_token_ should be specified in the Sensu settings rather than through
